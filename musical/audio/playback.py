@@ -30,11 +30,11 @@ def oss_play(data, rate=44100):
   import ossaudiodev
   audio = ossaudiodev.open('/dev/audio','w')
   formats = audio.getfmts()
-  if ossaudiodev.AFMT_S16_LE in formats:
+  if ossaudiodev.AFMT_S16_LE & formats:
     # Use 16 bit if available
     audio.setfmt(ossaudiodev.AFMT_S16_LE)
     data = encode.as_int16(data)
-  elif ossaudiodev.AFMT_U8 in formats:
+  elif ossaudiodev.AFMT_U8 & formats:
     # Otherwise use 8 bit
     audio.setfmt(ossaudiodev.AFMT_U8)
     data = encode.as_uint8(data)
