@@ -10,6 +10,24 @@ def silence(length, rate=44100):
   return numpy.zeros(int(length * rate))
 
 
+def pygamesound(sound):
+  ''' Create numpy array from pygame sound object
+      rate is determined by pygame.mixer settings
+  '''
+  import pygame
+  pygame.sndarray.use_arraytype('numpy')
+  array = pygame.sndarray.array(sound)
+  rate, format, channels = pygame.mixer.get_init()
+  data = numpy.zeros(len(array))
+  for i, sample in enumerate(array):
+    data[i] = sum(sample)
+  if format < 0:
+    data /= (2 ** -format) / 2
+  else:
+    data = (data / (2 ** format)) * 2 - 1
+  return data
+  
+
 def generate_wave_input(freq, length, rate=44100, phase=0.0):
   ''' Used by waveform generators to create frequency-scaled input array
   '''

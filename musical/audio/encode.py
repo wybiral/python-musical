@@ -27,4 +27,3 @@ def as_int16(data):
   '''
   data = data.clip(-1, 1)
   return (data * 32767).astype(numpy.int16)
-

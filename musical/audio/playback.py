@@ -11,7 +11,7 @@ def pygame_play(data, rate=44100):
   length = sound.get_length()
   sound.play()
   pygame.time.wait(int(length * 1000))
-  pygame.quit()
+  pygame.mixer.quit()
 
 
 def pygame_supported():
@@ -82,10 +82,10 @@ def play(data, rate=44100):
   ''' Send audio to first available playback method
   '''
   if pygame_supported():
-    return pygame_play(data)
+    return pygame_play(data, rate)
   elif oss_supported():
-    return oss_play(data)
+    return oss_play(data, rate)
   elif pyaudio_supported():
-    return pyaudio_play(data)
+    return pyaudio_play(data, rate)
   else:
     raise Exception("No supported playback method found")

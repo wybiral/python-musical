@@ -38,7 +38,7 @@ print "Rendering audio..."
 
 data = timeline.render()
 
-print "Applying Chorus effect..."
+print "Applying chorus effect..."
 
 data = effect.chorus(data, freq=3.14159)
 
