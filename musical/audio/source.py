@@ -30,11 +30,15 @@ def pygamesound(sound):
 
 def generate_wave_input(freq, length, rate=44100, phase=0.0):
   ''' Used by waveform generators to create frequency-scaled input array
+
+      Courtesy of threepineapples:
+        https://code.google.com/p/python-musical/issues/detail?id=2
   '''
   length = int(length * rate)
-  phase *= float(rate) / 2
-  factor = float(freq) * (math.pi * 2) / rate
-  return (numpy.arange(length) + phase) * factor
+  t = numpy.arange(length) / float(rate)
+  omega = float(freq) * 2 * math.pi
+  phase *= 2 * math.pi  
+  return omega * t + phase
 
 
 def sine(freq, length, rate=44100, phase=0.0):
