@@ -1,15 +1,24 @@
-#!/usr/bin/env python
+from setuptools import setup
 
-from distutils.core import setup
+version = '0.2.0'
 
 setup(
-    name = 'python-musical',
-    version = '0.1',
-    url = 'https://code.google.com/p/python-musical/',
-    description = 'A python library for dealing with sounds and music',
-    long_description = '',
-    author = 'Wybiral ',
-    author_email = 'davy.wybiral@gmail.com ',
-    requires = [],
-    packages = ['musical', 'musical.audio', 'musical.theory'],
+    name='musical',
+    version=version,
+    url='https://github.com/wybiral/python-musical/',
+    author='Davy Wybiral',
+    author_email='davy.wybiral@gmail.com',
+    description='A python library for dealing with sounds and music',
+    keywords = 'audio music theory synthesis',
+    packages=['musical', 'musical.audio', 'musical.theory'],
+    platforms='any',
+    install_requires=[
+        'numpy',
+        'scipy',
+    ],
+    classifiers=[
+        'Intended Audience :: Developers',
+        'Topic :: Artistic Software',
+        'Topic :: Multimedia :: Sound/Audio :: Sound Synthesis',
+    ],
 )
