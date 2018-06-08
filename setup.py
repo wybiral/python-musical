@@ -1,6 +1,6 @@
 from setuptools import setup
 
-version = '0.2.0'
+version = '0.3.0'
 
 setup(
     name='musical',
@@ -14,7 +14,6 @@ setup(
     platforms='any',
     install_requires=[
         'numpy',
-        'scipy',
     ],
     classifiers=[
         'Intended Audience :: Developers',

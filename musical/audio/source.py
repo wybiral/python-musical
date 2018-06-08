@@ -1,6 +1,5 @@
 import math
 import numpy
-from scipy.signal import waveforms
 
 def silence(length, rate=44100):
     ''' Generate 'length' seconds of silence at 'rate'
@@ -48,13 +47,31 @@ def sine(freq, length, rate=44100, phase=0.0):
     return numpy.sin(data)
 
 
+def _sawtooth(t):
+    ''' Generate sawtooth wave from wave input array.
+    '''
+    tmod = numpy.mod(t, 2 * numpy.pi)
+    return (tmod / numpy.pi) - 1
+
+
 def sawtooth(freq, length, rate=44100, phase=0.0):
     ''' Generate sawtooth wave for frequency of 'length' seconds long
         at a rate of 'rate'. The 'phase' of the wave is the percent (0.0 to 1.0)
         into the wave that it starts on.
     '''
     data = generate_wave_input(freq, length, rate, phase)
-    return waveforms.sawtooth(data)
+    return _sawtooth(data)
+
+
+def _square(t, duty=0.5):
+    ''' Generate square wave from wave input array with specific 'duty'.
+    '''
+    y = numpy.zeros(t.shape)
+    tmod = numpy.mod(t, 2 * numpy.pi)
+    mask = tmod < duty * 2 * numpy.pi
+    numpy.place(y, mask, 1)
+    numpy.place(y, (1 - mask), -1)
+    return y
 
 
 def square(freq, length, rate=44100, phase=0.0):
@@ -63,7 +80,7 @@ def square(freq, length, rate=44100, phase=0.0):
         into the wave that it starts on.
     '''
     data = generate_wave_input(freq, length, rate, phase)
-    return waveforms.square(data)
+    return _square(data)
 
 
 def ringbuffer(data, length, decay=1.0, rate=44100):
